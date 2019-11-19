@@ -22,7 +22,7 @@ CREATE TABLE `invoices` (
 `DiscountRate` int ,
 `TaxRate` int ,
 `PartNumber` char(15) ,
-`ProductName` varchar(30) ,
+`ProductName` varchar(100) ,
 `ProductWeight` int ,
 `Quantity` int ,
 `Price` float ,
