@@ -4,9 +4,13 @@ use finalproject;
 alter table invoices
     modify InvoiceID int unsigned primary key not null auto_increment first;
 
-#remove Full name
+#remove unnecessary
 alter table invoices
-    drop column if exists FullName;
+    drop FullName,
+    drop ExtendedPrice,
+    drop TaxAmount,
+    drop Subtotal,
+    drop InvoiceTotal;
 
 #fix Title column empty to null
 update invoices

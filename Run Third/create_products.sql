@@ -1,18 +1,38 @@
 use finalproject;
 drop table if exists product;
+drop table if exists price;
+drop table if exists invoice_products;
 
 create table product(
-    InvoiceID int unsigned,
-    ProductID char(15) primary key not null,
+    ProductID char(15) not null primary key,
     ProductName varchar(127),
-    ProductWeight int,
-    Quantity int(15),
-    Price decimal(15,2),
-    UnitDimensions char(15),
-    Date datetime,
-    foreign key (InvoiceID) references invoices(InvoiceID) on delete cascade on update cascade
+    UnitDimensions char(10),
+    ProductWeight decimal(15,2)
 ) as
-    select i.InvoiceID, i.PartNumber as ProductID, i.ProductName, i.UnitDimensions, i.ProductWeight, i.Quantity, i.Price, NOW() as Date
+    select i.PartNumber as ProductID, i.ProductName, i.UnitDimensions, i.ProductWeight
+    from invoices i;
+
+create table price(
+    ProductID char(15),
+    PriceID int unsigned primary key auto_increment not null,
+    Price decimal(15,2),
+    Date DATE,
+    foreign key (ProductID) references product(ProductID) on delete cascade on update cascade
+) as
+    select i.Price, NOW() as Date
+        from invoices i;
+
+create table invoice_products
+(
+    InvoiceID int unsigned,
+    ProductID char(15),
+    Quantity  int(15),
+    PriceID  int unsigned,
+    foreign key (InvoiceID) references invoices (InvoiceID) on delete cascade on update cascade,
+    foreign key (ProductID) references product (ProductID) on delete cascade on update cascade,
+    foreign key (PriceID) references price(PriceID) on delete cascade on update cascade
+) as
+    select i.InvoiceID, i.Quantity
            from invoices i;
 
 alter table invoices
