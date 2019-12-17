@@ -16,7 +16,7 @@ invoice.sql
 ## Database Diagram
 [Database Diagram](https://dbdiagram.io/d/5dd8305bedf08a25543e41a7)
 
-![Database Diagram](/DB Diagram.png]
+![Database Diagram](/DB_Diagram.png)
 
 ## Invoice Printed
 ![Invoice_printed](/invoice_printed.png)
